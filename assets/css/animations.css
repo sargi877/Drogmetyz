@@ -1,0 +1,39 @@
+/* assets/css/animations.css */
+
+/* SVG Draw-in Animation */
+.blueprint-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.blueprint-path.draw-in {
+  animation: draw-path 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes draw-path {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Page crossfade transition */
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blueprint-path {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .fade-in {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}

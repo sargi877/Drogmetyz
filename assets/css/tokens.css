@@ -1,0 +1,54 @@
+/* assets/css/tokens.css */
+:root, [data-theme="light"] {
+  --bg: #FFFFFF;
+  --surface: #F6F7F9;
+  --surface-2: #EDEFF3;
+  --border: #C7CEDA;
+  --line: #14213D;
+  --accent: #F2600C;
+  --accent-hover: #D6530A;
+  --text: #14213D;
+  --text-muted: #56617D;
+  --stock-ok: #1E9E6B;
+  --stock-low: #C6790E;
+  --stock-out: #C23B4B;
+  --focus-ring: #F2600C;
+}
+
+[data-theme="dark"] {
+  --bg: #0A1424;
+  --surface: #101D34;
+  --surface-2: #16294A;
+  --border: #2C4A7C;
+  --line: #4A8FE7;
+  --line-bright: #7FB8FF;
+  --text: #E7EEF9;
+  --text-muted: #8FA3C4;
+  --stock-ok: #4ADE9A;
+  --stock-low: #F2B84B;
+  --stock-out: #E5677A;
+  --focus-ring: #7FB8FF;
+}
+
+:root {
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.5rem;
+  --text-3xl: 4rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}

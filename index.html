@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drogmetyz</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#/" class="logo">
+                <span class="display-text logo-title">DROGMETYZ</span>
+                <span class="mono-text subtitle">метизи та кріплення</span>
+            </a>
+            <nav class="primary-nav">
+                <a href="#/catalog">Каталог</a>
+                <a href="#/about">Про нас</a>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" aria-label="Змінити тему" class="icon-btn">
+                    <svg class="icon-sun" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button id="reservation-toggle" aria-label="Бронювання" class="icon-btn reserve-btn">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span id="reservation-badge" class="badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <noscript>
+        <div class="noscript-banner container">
+            Для повноцінної роботи сайту потрібен JavaScript.
+        </div>
+    </noscript>
+
+    <main id="app-root"></main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-col brand-col">
+                <div class="display-text logo-small">DROGMETYZ</div>
+                <p class="mono-text text-sm">v1 showcase</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="mono-text">Контакти</h4>
+                <!-- TODO(owner): replace with real phone number -->
+                <p>+380 XX XXX XX XX</p>
+                <!-- TODO(owner): replace with real address -->
+                <p>м. Рівне, вул. Прикладна, 1</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="mono-text">Графік</h4>
+                <!-- TODO(owner): replace with real hours -->
+                <p>Пн-Пт: 09:00 - 18:00</p>
+                <p>Сб: 09:00 - 14:00</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Drawer Overlay (Reservation) -->
+    <div id="reservation-drawer" class="drawer-overlay" aria-hidden="true">
+        <div class="drawer" role="dialog" aria-labelledby="drawer-title">
+            <div class="drawer-header">
+                <h2 id="drawer-title" class="display-text">Бронювання</h2>
+                <button id="close-drawer" class="icon-btn" aria-label="Закрити">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="drawer-content" id="reservation-items">
+                <!-- Items render here -->
+            </div>
+            <div class="drawer-footer">
+                <div class="drawer-total mono-text" id="reservation-total">
+                    Сума — уточнюється
+                </div>
+                <button id="submit-reservation" class="btn btn-primary">Оформити бронювання</button>
+                <button id="copy-reservation" class="btn btn-secondary">Скопіювати список</button>
+                <p class="drawer-note text-xs text-muted" id="drawer-note"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
