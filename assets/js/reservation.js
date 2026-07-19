@@ -1,7 +1,7 @@
 // assets/js/reservation.js
 
 const CART_KEY = 'drogmetyz-cart';
-const RESERVATION_FORM_BASE_URL = "https://forms.gle/REPLACE_ME"; // TODO(owner)
+const RESERVATION_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeV94UYXHXEn7tpIzV5VlpOlenR7VJ_ynhSTIt8gon8FvNx5g/viewform?usp=publish-editor"; // TODO(owner)
 const FORM_FIELD_IDS = {
     name: "entry.REPLACE_ME", // TODO(owner)
     itemsSummary: "entry.REPLACE_ME" // TODO(owner)
