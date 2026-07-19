@@ -1,9 +1,24 @@
 // assets/js/views/home.js
+
+const HEADLINES = [
+    "Кріплення, яке підходить з першого разу",
+    "Надійне кріплення для ваших ідей",
+    "Точність у кожному міліметрі стандарту",
+    "Метизи, на які можна покластися",
+    "Коли потрібен правильний крок різьби",
+    "Справжня міцність без зайвих слів",
+    "Залізна точність для будь-якої задачі",
+    "Кріплення від професіоналів для професіоналів",
+    "Якість, перевірена кожним обертом"
+];
+
 export async function renderHome(root) {
+    const headline = HEADLINES[Math.floor(Math.random() * HEADLINES.length)];
+    
     root.innerHTML = `
         <section class="hero bg-graph-paper" style="padding: var(--space-8) 0; border-bottom: 1px solid var(--border);">
             <div class="container">
-                <h1 class="display-text" style="font-size: var(--text-3xl); max-width: 600px;">Кріплення, яке підходить з першого разу</h1>
+                <h1 class="display-text" style="font-size: var(--text-3xl); max-width: 600px;">${headline}</h1>
                 <p style="font-size: var(--text-lg); max-width: 500px; color: var(--text-muted);">Резервуйте деталі онлайн, забирайте особисто. Працюємо з точністю за стандартом.</p>
                 <a href="#/catalog" class="btn btn-primary" style="margin-top: var(--space-4); font-size: var(--text-base);">Перейти до каталогу</a>
             </div>
