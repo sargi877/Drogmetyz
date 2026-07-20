@@ -1,0 +1,140 @@
+/* assets/css/mobile.css
+   Mobile-only accessibility improvements:
+   - Scales up base/body type for easier reading
+   - Enlarges the footer contact block (the "little contact place" at the bottom)
+   - Improves tap-target sizes
+   - Tames the oversized hero headline so it no longer overflows
+   These rules apply ONLY below 768px (mobile/tablet portrait).
+*/
+
+@media (max-width: 767px) {
+  /* Scale the whole rem system up slightly so every token-based
+     text gets a gentle, consistent bump on small screens. */
+  html {
+    font-size: 17px;
+  }
+
+  body {
+    font-size: 1.0625rem;       /* ~18px */
+    line-height: 1.65;
+  }
+
+  /* ---- Header ---- */
+  .header-inner {
+    height: 56px;
+  }
+  .logo-title {
+    font-size: var(--text-lg);  /* was --text-xl; keep it tidy but legible */
+  }
+  .logo .subtitle {
+    font-size: var(--text-xs);
+  }
+  /* Bigger, easier-to-hit icon buttons */
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* ---- Hero (home) ---- */
+  /* The 64px desktop headline overflows phones; bring it down to a
+     readable size that still fits the viewport. */
+  .hero h1 {
+    font-size: var(--text-2xl) !important;
+    max-width: 100% !important;
+    line-height: 1.1;
+  }
+  .hero p {
+    font-size: var(--text-base) !important;
+    max-width: 100% !important;
+  }
+
+  /* ---- Cards / steps / category blocks ---- */
+  .card {
+    padding: var(--space-4);
+  }
+  .card h3 {
+    font-size: var(--text-lg);
+  }
+  .card p,
+  .card .text-sm,
+  .card .text-xs {
+    font-size: var(--text-base) !important;
+  }
+  .title-block {
+    font-size: var(--text-xs);
+  }
+
+  /* ---- Broad small-text bump across the whole site ----
+     Many views sprinkle `text-sm`/`text-xs` (breadcrumbs, filter
+     labels, descriptions, "N розмірів" notes). Lift them all so
+     nothing stays tiny on a phone. */
+  .text-sm {
+    font-size: var(--text-base) !important;
+  }
+  .text-xs {
+    font-size: var(--text-sm) !important;
+  }
+  /* Filter <select> controls: larger, easier to tap/read */
+  select,
+  input,
+  textarea {
+    font-size: var(--text-base) !important;
+  }
+  label.text-xs {
+    font-size: var(--text-sm) !important;
+  }
+
+  /* ---- Buttons (larger tap targets) ---- */
+  .btn {
+    font-size: var(--text-base);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* ---- Drawer / reservation ---- */
+  .drawer {
+    max-width: 100%;
+  }
+  .drawer-total {
+    font-size: var(--text-lg);
+  }
+
+  /* ---- Footer: the "little contact place" at the bottom ----
+     Bump the contact / schedule text well above its previous
+     14px so it is comfortable to read on a phone. */
+  .site-footer {
+    padding: var(--space-6) 0;
+  }
+  .footer-inner {
+    gap: var(--space-5);
+  }
+  .footer-col.brand-col .logo-small {
+    font-size: var(--text-xl);
+  }
+  .footer-col h4 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-3);
+    letter-spacing: 0.02em;
+  }
+  .footer-col p {
+    font-size: 1.125rem;        /* ~19px, clearly larger than before */
+    line-height: 1.6;
+    margin-bottom: var(--space-3);
+  }
+  .footer-col .text-sm {
+    font-size: 0.9375rem;       /* ~16px for the v1 showcase note */
+  }
+}
+
+/* Very small phones: push the footer contact text up even more
+   and give the hero a touch more breathing room. */
+@media (max-width: 380px) {
+  html {
+    font-size: 17px;
+  }
+  .footer-col p {
+    font-size: 1.1875rem;       /* ~20px on tiny screens */
+  }
+  .hero h1 {
+    font-size: var(--text-xl) !important;
+  }
+}
