@@ -18,9 +18,16 @@ export async function renderHome(root) {
     root.innerHTML = `
         <section class="hero bg-graph-paper" style="padding: var(--space-8) 0; border-bottom: 1px solid var(--border);">
             <div class="container">
-                <h1 class="display-text" style="font-size: var(--text-3xl); max-width: 600px;">${headline}</h1>
-                <p style="font-size: var(--text-lg); max-width: 500px; color: var(--text-muted);">Резервуйте деталі онлайн, забирайте особисто. Працюємо з точністю за стандартом.</p>
-                <a href="#/catalog" class="btn btn-primary" style="margin-top: var(--space-4); font-size: var(--text-base);">Перейти до каталогу</a>
+                <div class="hero-layout">
+                    <div class="hero-text">
+                        <h1 class="display-text" style="font-size: var(--text-3xl); max-width: 600px;">${headline}</h1>
+                        <p style="font-size: var(--text-lg); max-width: 500px; color: var(--text-muted);">Резервуйте деталі онлайн, забирайте особисто. Працюємо з точністю за стандартом.</p>
+                        <a href="#/catalog" class="btn btn-primary" style="margin-top: var(--space-4); font-size: var(--text-base);">Перейти до каталогу</a>
+                    </div>
+                    <div class="hero-image-wrap">
+                        <img src="assets/images/bolt.png" alt="Кріплення" class="hero-bolt-img" width="800" height="800">
+                    </div>
+                </div>
             </div>
         </section>
         <section style="padding: var(--space-6) 0;">

@@ -9,6 +9,25 @@ const FORM_FIELD_IDS = {
 
 let cart = [];
 
+// Cursor-follow lighting effect for hero banner
+const attachCursorLight = (root = document) => {
+    const hero = root.querySelector('.hero');
+    if (!hero) return;
+    
+    const update = (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        hero.style.setProperty('--mouse-x', `${x}%`);
+        hero.style.setProperty('--mouse-y', `${y}%`);
+    };
+    
+    hero.addEventListener('mousemove', update);
+    hero.addEventListener('touchmove', (e) => {
+        if (e.touches.length) update(e.touches[0]);
+    }, { passive: true });
+};
+
 export function initReservation() {
     const saved = localStorage.getItem(CART_KEY);
     if (saved) {
@@ -48,6 +67,13 @@ export function initReservation() {
 
     document.getElementById('submit-reservation')?.addEventListener('click', submitReservation);
     document.getElementById('copy-reservation')?.addEventListener('click', copyReservation);
+    
+    // Initial attach for cursor lighting
+    attachCursorLight();
+    
+    // Re-attach after route changes
+    const observer = new MutationObserver(() => attachCursorLight(document));
+    observer.observe(document.getElementById('app-root'), { childList: true, subtree: true });
 
     updateBadge();
 }

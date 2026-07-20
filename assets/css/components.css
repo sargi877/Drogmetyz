@@ -265,6 +265,77 @@
   color: var(--bg);
 }
 
+/* Hero bolt image */
+.hero {
+  position: relative;
+}
+
+.hero-layout {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7);
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-image-wrap {
+  flex: 0 0 auto;
+  width: 360px;
+  height: 420px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: crosshair;
+  margin-left: -60px;
+}
+
+/* Cursor-follow lighting/reflection over entire banner */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 70%) var(--mouse-y, 30%),
+    rgba(255, 255, 255, 0.24) 0%,
+    rgba(255, 255, 255, 0.10) 35%,
+    transparent 70%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  transition: background 0.1s ease;
+  z-index: 2;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+.hero-bolt-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.3)) brightness(1.02);
+  animation: float-sway 7s ease-in-out infinite;
+  transform-origin: center center;
+  transition: filter 0.3s ease;
+}
+
+.hero-image-wrap:hover .hero-bolt-img {
+  filter: drop-shadow(0 28px 56px rgba(0,0,0,0.35)) brightness(1.06);
+}
+
+@keyframes float-sway {
+  0%, 100% { transform: translateY(0) rotate(-25deg); }
+  25% { transform: translateY(-12px) rotate(-24deg); }
+  50% { transform: translateY(-18px) rotate(-23deg); }
+  75% { transform: translateY(-8px) rotate(-24.5deg); }
+}
+
 /* Cards & Title Blocks */
 .card {
   background-color: var(--surface-2);

@@ -1,0 +1,157 @@
+<svg viewBox="0 0 200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bolt-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C0C0C0;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#E8E8E8;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#A0A0A0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#808080;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="thread-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#606060;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#B0B0B0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#D0D0D0;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#909090;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#505050;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="4" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="bolt-clip">
+      <polygon points="100,20 160,60 160,160 100,200 40,160 40,60"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Bolt shadow on ground -->
+  <ellipse cx="100" cy="780" rx="60" ry="10" fill="#000000" opacity="0.15"/>
+  
+  <!-- Bolt head (hexagon) -->
+  <g filter="url(#shadow)">
+    <polygon points="100,20 160,60 160,160 100,200 40,160 40,60" 
+             fill="url(#bolt-gradient)" 
+             stroke="#606060" 
+             stroke-width="2"
+             stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Head highlight edge -->
+  <polygon points="100,20 160,60 160,160 100,200 40,160 40,60" 
+           fill="none" 
+           stroke="rgba(255,255,255,0.6)" 
+           stroke-width="3"
+           stroke-linejoin="round"/>
+  
+  <!-- Bolt shaft -->
+  <g filter="url(#shadow)">
+    <rect x="70" y="195" width="60" height="520" rx="2" fill="url(#thread-gradient)"/>
+  </g>
+  
+  <!-- Shaft highlight -->
+  <rect x="70" y="195" width="60" height="520" rx="2" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  
+  <!-- Thread lines -->
+  <g stroke="#505050" stroke-width="2" opacity="0.6">
+    <line x1="75" y1="220" x2="125" y2="220"/>
+    <line x1="75" y1="235" x2="125" y2="235"/>
+    <line x1="75" y1="250" x2="125" y2="250"/>
+    <line x1="75" y1="265" x2="125" y2="265"/>
+    <line x1="75" y1="280" x2="125" y2="280"/>
+    <line x1="75" y1="295" x2="125" y2="295"/>
+    <line x1="75" y1="310" x2="125" y2="310"/>
+    <line x1="75" y1="325" x2="125" y2="325"/>
+    <line x1="75" y1="340" x2="125" y2="340"/>
+    <line x1="75" y1="355" x2="125" y2="355"/>
+    <line x1="75" y1="370" x2="125" y2="370"/>
+    <line x1="75" y1="385" x2="125" y2="385"/>
+    <line x1="75" y1="400" x2="125" y2="400"/>
+    <line x1="75" y1="415" x2="125" y2="415"/>
+    <line x1="75" y1="430" x2="125" y2="430"/>
+    <line x1="75" y1="445" x2="125" y2="445"/>
+    <line x1="75" y1="460" x2="125" y2="460"/>
+    <line x1="75" y1="475" x2="125" y2="475"/>
+    <line x1="75" y1="490" x2="125" y2="490"/>
+    <line x1="75" y1="505" x2="125" y2="505"/>
+    <line x1="75" y1="520" x2="125" y2="520"/>
+    <line x1="75" y1="535" x2="125" y2="535"/>
+    <line x1="75" y1="550" x2="125" y2="550"/>
+    <line x1="75" y1="565" x2="125" y2="565"/>
+    <line x1="75" y1="580" x2="125" y2="580"/>
+    <line x1="75" y1="595" x2="125" y2="595"/>
+    <line x1="75" y1="610" x2="125" y2="610"/>
+    <line x1="75" y1="625" x2="125" y2="625"/>
+    <line x1="75" y1="640" x2="125" y2="640"/>
+    <line x1="75" y1="655" x2="125" y2="655"/>
+    <line x1="75" y1="670" x2="125" y2="670"/>
+    <line x1="75" y1="685" x2="125" y2="685"/>
+    <line x1="75" y1="700" x2="125" y2="700"/>
+  </g>
+  
+  <!-- Thread ridge highlights -->
+  <g stroke="rgba(255,255,255,0.3)" stroke-width="1">
+    <line x1="72" y1="228" x2="72" y2="710"/>
+    <line x1="126" y1="228" x2="126" y2="710"/>
+  </g>
+  
+  <!-- Water droplets -->
+  <g fill="#A0C8E8" opacity="0.7">
+    <!-- Head droplets -->
+    <circle cx="85" cy="45" r="3"/>
+    <circle cx="130" cy="55" r="2.5"/>
+    <circle cx="110" cy="75" r="2"/>
+    <circle cx="145" cy="85" r="3.5"/>
+    <circle cx="70" cy="95" r="2.5"/>
+    <circle cx="90" cy="110" r="2"/>
+    <circle cx="125" cy="130" r="3"/>
+    <circle cx="155" cy="140" r="2"/>
+    <circle cx="55" cy="125" r="2.5"/>
+    <circle cx="95" cy="155" r="2"/>
+    <circle cx="135" cy="170" r="3"/>
+    <circle cx="60" cy="175" r="2"/>
+    
+    <!-- Shaft droplets -->
+    <circle cx="78" cy="215" r="2"/>
+    <circle cx="128" cy="240" r="2.5"/>
+    <circle cx="82" cy="260" r="2"/>
+    <circle cx="122" cy="285" r="3"/>
+    <circle cx="76" cy="305" r="2"/>
+    <circle cx="130" cy="330" r="2.5"/>
+    <circle cx="80" cy="355" r="2"/>
+    <circle cx="118" cy="378" r="2"/>
+    <circle cx="74" cy="400" r="2.5"/>
+    <circle cx="124" cy="425" r="2"/>
+    <circle cx="85" cy="448" r="3"/>
+    <circle cx="72" cy="470" r="2"/>
+    <circle cx="128" cy="495" r="2.5"/>
+    <circle cx="80" cy="518" r="2"/>
+    <circle cx="118" cy="542" r="2"/>
+    <circle cx="74" cy="565" r="2.5"/>
+    <circle cx="126" cy="590" r="2"/>
+    <circle cx="82" cy="612" r="2"/>
+    <circle cx="120" cy="635" r="2.5"/>
+    <circle cx="76" cy="658" r="2"/>
+    <circle cx="128" cy="682" r="2"/>
+    <circle cx="86" cy="705" r="2.5"/>
+    
+    <!-- Large droplet on right edge -->
+    <circle cx="145" cy="460" r="4"/>
+    <circle cx="148" cy="458" r="1.5" fill="rgba(255,255,255,0.8)"/>
+  </g>
+  
+  <!-- Water droplet highlights -->
+  <g fill="rgba(255,255,255,0.8)">
+    <circle cx="84" cy="43" r="1"/>
+    <circle cx="144" cy="83" r="1.5"/>
+    <circle cx="54" cy="123" r="1"/>
+    <circle cx="124" cy="168" r="1"/>
+    <circle cx="147" cy="458" r="1.5"/>
+    <circle cx="122" cy="283" r="1.2"/>
+    <circle cx="74" cy="398" r="1"/>
+  </g>
+</svg>
