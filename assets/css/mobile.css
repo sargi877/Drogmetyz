@@ -1,206 +1,274 @@
-/* assets/css/mobile.css
-   Mobile-only accessibility improvements:
-   - Scales up base/body type for easier reading
-   - Enlarges the footer contact block (the "little contact place" at the bottom)
-   - Improves tap-target sizes
-   - Tames the oversized hero headline so it no longer overflows
-   These rules apply ONLY below 768px (mobile/tablet portrait).
-*/
+/* assets/css/mobile.css */
 
 @media (max-width: 767px) {
-  /* Scale the whole rem system up slightly so every token-based
-     text gets a gentle, consistent bump on small screens. */
+  /* --- Base Scale --- */
   html {
     font-size: 17px;
   }
 
   body {
-    font-size: 1.0625rem;       /* ~18px */
+    font-size: 1.0625rem;
     line-height: 1.65;
   }
 
-  /* ---- Header ---- */
-  .header-inner {
-    height: 56px;
-  }
-  .logo-title {
-    font-size: var(--text-lg);  /* was --text-xl; keep it tidy but legible */
-  }
-  .logo .subtitle {
-    font-size: var(--text-xs);
-  }
-  /* Bigger, easier-to-hit icon buttons */
-  .icon-btn {
-    width: 44px;
-    height: 44px;
-  }
-
-  /* ---- Hero (home) ---- */
-  /* The 64px desktop headline overflows phones; bring it down to a
-     readable size that still fits the viewport. */
-  .hero h1 {
-    font-size: var(--text-2xl) !important;
-    max-width: 100% !important;
-    line-height: 1.1;
-  }
-  .hero p {
-    font-size: var(--text-base) !important;
-    max-width: 100% !important;
-  }
-  /* Stack the hero: text on top, bolt image below. */
-  .hero-layout {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-5);
-  }
-  .hero-image-wrap {
-    width: 100%;
-    height: 280px;
-    order: -1;
-    margin-left: 0 !important;
-  }
-  .hero-bolt-img {
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.25));
-    animation-duration: 10s;
-  }
-
-  /* ---- Cards / steps / category blocks ---- */
-  .card {
-    padding: var(--space-4);
-  }
-  .card h3 {
-    font-size: var(--text-lg);
-  }
-  .card p,
-  .card .text-sm,
-  .card .text-xs {
-    font-size: var(--text-base) !important;
-  }
-  .title-block {
-    font-size: var(--text-xs);
-  }
-
-  /* ---- Broad small-text bump across the whole site ----
-     Many views sprinkle `text-sm`/`text-xs` (breadcrumbs, filter
-     labels, descriptions, "N розмірів" notes). Lift them all so
-     nothing stays tiny on a phone. */
   .text-sm {
     font-size: var(--text-base) !important;
   }
-  .text-xs {
+
+  .text-xs,
+  label.text-xs,
+  .title-block {
     font-size: var(--text-sm) !important;
   }
-  /* Filter <select> controls: larger, easier to tap/read */
+
   select,
   input,
   textarea {
     font-size: var(--text-base) !important;
   }
-  label.text-xs {
-    font-size: var(--text-sm) !important;
+
+  /* --- Header --- */
+  .header-inner {
+    height: 56px;
   }
 
-  /* ---- Buttons (larger tap targets) ---- */
-  .btn {
-    font-size: var(--text-base);
-    padding: var(--space-3) var(--space-4);
-  }
-
-  /* ---- Drawer / reservation ---- */
-  .drawer {
-    max-width: 100%;
-  }
-  .drawer-total {
+  .logo-title {
     font-size: var(--text-lg);
   }
 
-  /* ---- Catalog rows (standard view) ----
-     Rebuild the catalog item row for small screens: stack the
-     product info on top, then action controls below. */
+  .logo .subtitle {
+    font-size: var(--text-xs);
+  }
+
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* --- Hero --- */
+  .hero h1 {
+    max-width: 100% !important;
+    font-size: var(--text-2xl) !important;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    max-width: 100% !important;
+    font-size: var(--text-base) !important;
+  }
+
+  .hero-layout {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-5);
+  }
+
+  .hero-image-wrap {
+    order: -1;
+    width: 100%;
+    height: 280px;
+    margin-left: 0 !important;
+  }
+
+  .hero-bolt-img {
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
+    animation-duration: 10s;
+  }
+
+  /* --- Cards & Buttons --- */
+  .card {
+    padding: var(--space-4);
+  }
+
+  .card h3 {
+    font-size: var(--text-lg);
+  }
+
+  .card p,
+  .card .text-sm,
+  .card .text-xs {
+    font-size: var(--text-base) !important;
+  }
+
+  .btn {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-base);
+  }
+
+  /* --- Reservation Drawer --- */
+  .drawer {
+    max-width: 100%;
+  }
+
+  .drawer-total {
+    font-size: var(--text-sm) !important;
+    font-weight: 600 !important;
+  }
+
+  .btn-submit-reservation {
+    min-height: 52px !important;
+    font-size: var(--text-base) !important;
+  }
+
+  .reservation-item-row {
+    padding: var(--space-4) var(--space-2);
+  }
+
+  .reservation-item-name {
+    font-size: var(--text-lg) !important;
+    letter-spacing: 0.04em;
+  }
+
+  .reservation-item-meta {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-base) !important;
+  }
+
+  .reservation-item-price {
+    padding: 6px 14px !important;
+    background: rgba(127, 127, 127, 0.15) !important;
+    font-size: var(--text-base) !important;
+    font-weight: 700;
+  }
+
+  .reservation-item-actions {
+    position: relative !important;
+    width: 100% !important;
+    margin-top: var(--space-3) !important;
+  }
+
+  .reservation-item-actions .qty-stepper {
+    height: 32px !important;
+  }
+
+  .reservation-item-actions .qty-btn {
+    width: 32px !important;
+    font-size: 16px !important;
+  }
+
+  .reservation-item-actions .qty-input {
+    width: 48px !important;
+    font-size: 16px !important;
+  }
+
+  .reservation-item-actions .remove-btn {
+    right: calc(50% - 90px) !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 16px !important;
+  }
+
+  /* --- Catalog Rows (Stacked) --- */
   .card[style*="flexWrap: nowrap"],
   .card[style*="flex-wrap: nowrap"] {
     flex-wrap: wrap !important;
     gap: var(--space-3) !important;
     padding: var(--space-3) !important;
   }
+
   .card > div:first-child {
+    display: flex;
     flex: 1 1 100% !important;
-    min-width: 100% !important;
     flex-wrap: wrap;
     gap: var(--space-2);
     justify-content: center;
+    min-width: 100% !important;
     text-align: center;
   }
+
   .card .size-name {
     font-size: var(--text-lg);
   }
+
   .card .stock-cell {
     flex-wrap: wrap;
     gap: 4px;
   }
+
   .card > div:last-child {
+    display: flex;
     flex: 1 1 100% !important;
-    min-width: 100% !important;
     flex-wrap: wrap;
     gap: var(--space-2);
     justify-content: center;
+    min-width: 100% !important;
   }
+
+  /* Stepper Box Fix: Fits contents tightly, eliminates black gap wings */
   .card .qty-stepper {
     order: 10;
-    width: auto;
-    min-width: 200px;
-    justify-content: center;
+    width: fit-content !important;
+    min-width: 0 !important;
+    height: 36px !important;
     margin-top: var(--space-2);
   }
+
+  .card .qty-stepper .qty-btn {
+    width: 36px !important;
+    height: 100% !important;
+    font-size: 16px !important;
+  }
+
+  .card .qty-stepper .qty-input {
+    width: 48px !important;
+    height: 100% !important;
+    font-size: 16px !important;
+  }
+
   .card .btn-add-cart {
     order: 11;
     flex: 1 1 auto;
     justify-content: center;
-    min-height: 44px;
     width: 100%;
-  }
-  .card .catalog-price {
-    font-size: var(--text-xs);
-    padding: 2px 6px;
+    min-height: 44px;
   }
 
-  /* ---- Footer: the "little contact place" at the bottom ----
-     Bump the contact / schedule text well above its previous
-     14px so it is comfortable to read on a phone. */
+  .card .catalog-price {
+    padding: 2px 6px;
+    font-size: var(--text-xs);
+  }
+
+  /* --- Footer --- */
   .site-footer {
     padding: var(--space-6) 0;
   }
+
   .footer-inner {
     gap: var(--space-5);
   }
+
   .footer-col.brand-col .logo-small {
     font-size: var(--text-xl);
   }
+
   .footer-col h4 {
-    font-size: var(--text-base);
     margin-bottom: var(--space-3);
+    font-size: var(--text-base);
     letter-spacing: 0.02em;
   }
+
   .footer-col p {
-    font-size: 1.125rem;        /* ~19px, clearly larger than before */
-    line-height: 1.6;
     margin-bottom: var(--space-3);
+    font-size: 1.125rem;
+    line-height: 1.6;
   }
+
   .footer-col .text-sm {
-    font-size: 0.9375rem;       /* ~16px for the v1 showcase note */
+    font-size: 0.9375rem;
   }
 }
 
-/* Very small phones: push the footer contact text up even more
-   and give the hero a touch more breathing room. */
+/* --- Extra Small Devices (< 380px) --- */
 @media (max-width: 380px) {
   html {
     font-size: 17px;
   }
-  .footer-col p {
-    font-size: 1.1875rem;       /* ~20px on tiny screens */
-  }
+
   .hero h1 {
     font-size: var(--text-xl) !important;
+  }
+
+  .footer-col p {
+    font-size: 1.1875rem;
   }
 }

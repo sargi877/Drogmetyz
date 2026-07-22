@@ -65,8 +65,8 @@ export function initReservation() {
         }
     });
 
+    // Copy is now mandatory and integrated into submit flow
     document.getElementById('submit-reservation')?.addEventListener('click', submitReservation);
-    document.getElementById('copy-reservation')?.addEventListener('click', copyReservation);
     
     // Initial attach for cursor lighting
     attachCursorLight();
@@ -114,6 +114,36 @@ function updateBadge() {
     }
 }
 
+function updateTotal() {
+    const totalEl = document.getElementById('reservation-total');
+    if (!totalEl) return;
+
+    let sum = 0;
+    let allPricesKnown = true;
+
+    cart.forEach(item => {
+        if (item.price) {
+            const p = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+            if (!isNaN(p)) {
+                sum += p * item.qty;
+            } else {
+                allPricesKnown = false;
+            }
+        } else {
+            allPricesKnown = false;
+        }
+    });
+
+    if (allPricesKnown && sum > 0) {
+        totalEl.textContent = `Сума — ${sum.toFixed(2)} грн`;
+    } else {
+        totalEl.textContent = 'Сума — уточнюється';
+    }
+
+    totalEl.classList.add('highlight');
+    setTimeout(() => totalEl.classList.remove('highlight'), 300);
+}
+
 function renderCart() {
     const container = document.getElementById('reservation-items');
     const totalEl = document.getElementById('reservation-total');
@@ -131,12 +161,8 @@ function renderCart() {
 
     cart.forEach((item, index) => {
         const row = document.createElement('div');
-        row.style.borderBottom = '1px solid var(--border)';
-        row.style.padding = 'var(--space-3) 0';
-        row.style.display = 'flex';
-        row.style.justifyContent = 'space-between';
-        row.style.alignItems = 'center';
-        row.style.gap = 'var(--space-2)';
+        row.className = 'reservation-item';
+        row.dataset.index = index;
 
         let priceLabel = 'Ціна за запитом';
         if (item.price) {
@@ -151,17 +177,25 @@ function renderCart() {
             allPricesKnown = false;
         }
 
+        const sizeLabel = `${item.diameter}×${item.length}`;
+
         row.innerHTML = `
-            <div style="flex:1;">
-                <div class="mono-text text-sm" style="font-weight: 500;">${item.standard}</div>
-                <div class="mono-text text-xs text-muted">⌀${item.diameter} L${item.length} Кл.${item.strengthClass}</div>
-                <div class="mono-text text-xs" style="margin-top: 4px;">${priceLabel}</div>
-            </div>
-            <div style="display:flex; align-items: center; gap: var(--space-2);">
-                <input type="number" min="1" value="${item.qty}" class="qty-edit mono-text" style="width:50px; padding:4px; border:1px solid var(--border); border-radius:4px; text-align:center; background: var(--bg); color: var(--text);" aria-label="Кількість">
-                <button class="icon-btn remove-btn" aria-label="Видалити" style="color: var(--stock-out); width: 32px; height: 32px;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
+            <div class="reservation-item-row">
+                <div class="reservation-item-info">
+                    <div class="reservation-item-name">${item.standard}</div>
+                    <div class="reservation-item-meta">${sizeLabel} · Кл.${item.strengthClass}</div>
+                    <div class="reservation-item-price">${priceLabel}</div>
+                </div>
+                <div class="reservation-item-actions">
+                    <div class="qty-stepper">
+                        <button class="qty-btn qty-minus" aria-label="Зменшити" data-index="${index}">−</button>
+                        <input type="number" min="1" value="${item.qty}" class="qty-input qty-edit mono-text" aria-label="Кількість" data-index="${index}">
+                        <button class="qty-btn qty-plus" aria-label="Збільшити" data-index="${index}">+</button>
+                    </div>
+                    <button class="icon-btn remove-btn" aria-label="Видалити" data-index="${index}">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
             </div>
         `;
 
@@ -171,7 +205,7 @@ function renderCart() {
             if (val > 0) {
                 cart[index].qty = val;
                 saveCart();
-                renderCart();
+                updateTotal();
             } else {
                 e.target.value = item.qty;
             }
@@ -179,9 +213,33 @@ function renderCart() {
 
         const rmBtn = row.querySelector('.remove-btn');
         rmBtn.addEventListener('click', () => {
-            cart.splice(index, 1);
+            row.classList.add('removing');
+            setTimeout(() => {
+                cart.splice(index, 1);
+                saveCart();
+                renderCart();
+            }, 250);
+        });
+
+        const minusBtn = row.querySelector('.qty-minus');
+        const plusBtn = row.querySelector('.qty-plus');
+
+        minusBtn.addEventListener('click', () => {
+            let val = parseInt(input.value, 10) || 1;
+            val = Math.max(1, val - 1);
+            input.value = val;
+            cart[index].qty = val;
             saveCart();
-            renderCart();
+            updateTotal();
+        });
+
+        plusBtn.addEventListener('click', () => {
+            let val = parseInt(input.value, 10) || 1;
+            val = val + 1;
+            input.value = val;
+            cart[index].qty = val;
+            saveCart();
+            updateTotal();
         });
 
         container.appendChild(row);
@@ -197,36 +255,67 @@ function renderCart() {
 function generateSummaryText() {
     if (cart.length === 0) return "Бронювання порожнє.";
     let text = "Бронювання Drogmetyz:\n\n";
+    let sum = 0;
+    let allPricesKnown = true;
+
     cart.forEach((item, i) => {
-        text += `${i+1}. ${item.standard}, ⌀${item.diameter} L${item.length} Кл.${item.strengthClass} — ${item.qty} шт\n`;
+        const size = `${item.diameter}×${item.length}`;
+        let priceLine = '';
+        if (item.price) {
+            const p = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+            if (!isNaN(p)) {
+                sum += p * item.qty;
+                priceLine = ` — ${item.qty} шт × ${item.price} грн/шт`;
+            } else {
+                allPricesKnown = false;
+                priceLine = ` — ${item.qty} шт (ціна за запитом)`;
+            }
+        } else {
+            allPricesKnown = false;
+            priceLine = ` — ${item.qty} шт (ціна за запитом)`;
+        }
+        text += `${i+1}. ${item.standard} (${size}) Кл.${item.strengthClass}${priceLine}\n`;
     });
+
+    if (allPricesKnown && sum > 0) {
+        text += `\nЗагальна сума: ${sum.toFixed(2)} грн`;
+    } else {
+        text += `\nЗагальна сума: уточнюється`;
+    }
     return text;
 }
 
 function submitReservation() {
     if (cart.length === 0) return;
-    
-    let url = RESERVATION_FORM_BASE_URL;
-    const summary = generateSummaryText();
-    
-    if (!url.includes("REPLACE_ME") && !FORM_FIELD_IDS.itemsSummary.includes("REPLACE_ME")) {
-        const sep = url.includes('?') ? '&' : '?';
-        url += `${sep}${FORM_FIELD_IDS.itemsSummary}=${encodeURIComponent(summary)}`;
-    }
-    
-    window.open(url, '_blank');
-    document.getElementById('drawer-note').textContent = 'Форма відкрилась у новій вкладці. Заповніть її, і ми зв\'яжемось для підтвердження.';
-}
 
-function copyReservation() {
-    if (cart.length === 0) return;
     const summary = generateSummaryText();
+
     navigator.clipboard.writeText(summary).then(() => {
-        document.getElementById('drawer-note').textContent = 'Список скопійовано в буфер обміну!';
+        const note = document.getElementById('drawer-note');
+        if (note) {
+            note.textContent = 'Скопійовано! Відкриваю форму...';
+            note.classList.add('copy-success');
+        }
+
         setTimeout(() => {
-            document.getElementById('drawer-note').textContent = '';
-        }, 3000);
+            let url = RESERVATION_FORM_BASE_URL;
+            if (!url.includes("REPLACE_ME") && !FORM_FIELD_IDS.itemsSummary.includes("REPLACE_ME")) {
+                const sep = url.includes('?') ? '&' : '?';
+                url += `${sep}${FORM_FIELD_IDS.itemsSummary}=${encodeURIComponent(summary)}`;
+            }
+            window.open(url, '_blank');
+            if (note) {
+                note.textContent = 'Форма відкрилась у новій вкладці. Заповніть її, і ми зв\'яжемось для підтвердження.';
+                setTimeout(() => {
+                    note.textContent = '';
+                    note.classList.remove('copy-success');
+                }, 4000);
+            }
+        }, 800);
     }).catch(() => {
-        document.getElementById('drawer-note').textContent = 'Помилка копіювання.';
+        const note = document.getElementById('drawer-note');
+        if (note) {
+            note.textContent = 'Помилка копіювання. Спробуйте ще раз.';
+        }
     });
 }
