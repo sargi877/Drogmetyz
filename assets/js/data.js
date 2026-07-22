@@ -3,8 +3,16 @@
 // TODO(owner): replace before real use
 export const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_lIOz6261x2IwoQGQrdle9Ow392cnThihv105m-6z5b2yFe9VxoNPIe6248ohzZRUGJhULt4NgyI-/pub?output=csv";
 
-const CACHE_KEY = 'drogmetyz-data-cache-v2';
-const CACHE_TIME_KEY = 'drogmetyz-data-time-v2';
+const CACHE_KEY = 'drogmetyz-data-cache-v3';
+const CACHE_TIME_KEY = 'drogmetyz-data-time-v3';
+
+// Clear old cache versions to avoid stale empty data after schema changes
+try {
+    sessionStorage.removeItem('drogmetyz-data-cache-v2');
+    sessionStorage.removeItem('drogmetyz-data-time-v2');
+    sessionStorage.removeItem('drogmetyz-data-cache-v1');
+    sessionStorage.removeItem('drogmetyz-data-time-v1');
+} catch (e) {}
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 let cachedData = null;
@@ -90,7 +98,7 @@ function processRawData(rows) {
         diameter: (row['Діаметр (d, мм)'] || '').trim(),
         length: parseFloat(row['Довжина (l, мм)']) || 0,
         strengthClass: (row['Клас міцності (стійкість)'] || '').trim(),
-        stockRaw: (row['Наявність'] || '').trim(),
+        stockRaw: (row['Кількість'] || '').trim(),
         priceRaw: row['Ціна (грн)'] !== undefined ? (row['Ціна (грн)'] || '').trim() : ''
     }));
 }

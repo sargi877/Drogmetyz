@@ -114,6 +114,52 @@
     font-size: var(--text-lg);
   }
 
+  /* ---- Catalog rows (standard view) ----
+     Rebuild the catalog item row for small screens: stack the
+     product info on top, then action controls below. */
+  .card[style*="flexWrap: nowrap"],
+  .card[style*="flex-wrap: nowrap"] {
+    flex-wrap: wrap !important;
+    gap: var(--space-3) !important;
+    padding: var(--space-3) !important;
+  }
+  .card > div:first-child {
+    flex: 1 1 100% !important;
+    min-width: 100% !important;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .card .size-name {
+    font-size: var(--text-lg);
+  }
+  .card .stock-cell {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .card > div:last-child {
+    flex: 1 1 100% !important;
+    min-width: 100% !important;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    justify-content: flex-start;
+  }
+  .card .qty-stepper {
+    order: 10;
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: var(--space-2);
+  }
+  .card .btn-add-cart {
+    order: 11;
+    flex: 1 1 auto;
+    justify-content: center;
+    min-height: 44px;
+  }
+  .card .catalog-price {
+    font-size: var(--text-xs);
+    padding: 2px 6px;
+  }
+
   /* ---- Footer: the "little contact place" at the bottom ----
      Bump the contact / schedule text well above its previous
      14px so it is comfortable to read on a phone. */

@@ -132,40 +132,66 @@ export async function renderStandard(root, categorySlug, standardSlug) {
             row.style.display = 'flex';
             row.style.alignItems = 'center';
             row.style.justifyContent = 'space-between';
-            row.style.flexWrap = 'wrap';
+            row.style.flexWrap = 'nowrap';
             row.style.gap = 'var(--space-4)';
             row.style.padding = 'var(--space-3) var(--space-4)';
 
-            let stockClass = 'status-neutral';
-            let stockLabel = item.stockRaw || 'Уточнюйте';
-            const sLower = stockLabel.toLowerCase();
-            if (sLower.includes('в наявності')) stockClass = 'status-ok';
-            else if (sLower.includes('обмежено')) stockClass = 'status-low';
-            else if (sLower.includes('немає')) stockClass = 'status-out';
+            const qty = parseInt(item.stockRaw || '0', 10);
+            let stockIcon = '';
+            let stockText = 'Уточнюйте';
+            let stockAvailable = false;
+            if (!isNaN(qty) && qty > 0) {
+                stockText = `${qty} шт.`;
+                stockAvailable = true;
+                stockIcon = '<svg class="stock-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+            }
 
             const priceLabel = item.priceRaw ? `${item.priceRaw} грн/шт` : 'Ціна за запитом';
+            let sizeLabel = (item.diameter || '').trim();
+            if (sizeLabel && !String(sizeLabel).trim().startsWith('M')) {
+                sizeLabel = `M${sizeLabel}`;
+            }
+            const lengthLabel = item.length ? `×${item.length}` : '';
 
             row.innerHTML = `
-                <div style="flex: 1; min-width: 200px; display: flex; gap: var(--space-4); align-items: center;">
-                    <div class="mono-text" style="font-weight: 500;">
-                        ${item.diameter ? `⌀${item.diameter}` : ''} 
-                        ${item.length ? `L${item.length}` : ''}
+                <div style="display: flex; align-items: center; gap: var(--space-3); flex: 1; min-width: 0;">
+                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                        <span class="size-name mono-text">${sizeLabel}${lengthLabel}</span>
+                        <span class="std-label mono-text text-xs text-muted">${standardNum}</span>
                     </div>
-                    <div class="mono-text text-sm text-muted">Кл. ${item.strengthClass}</div>
+                    <div class="strength-badge mono-text">${item.strengthClass}</div>
                 </div>
-                <div style="display: flex; gap: var(--space-4); align-items: center; flex-wrap: wrap;">
-                    <span class="status-badge ${stockClass}">${stockLabel}</span>
-                    <span class="mono-text" style="min-width: 120px; text-align: right;">${priceLabel}</span>
-                    <div style="display: flex; align-items: center; gap: var(--space-2);">
-                        <input type="number" min="1" value="1" class="qty-input mono-text" style="width: 60px; padding: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 4px; text-align: center;" aria-label="Кількість">
-                        <button class="btn btn-primary btn-add">Додати</button>
+                <div style="display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0;">
+                    <div class="stock-cell">
+                        ${stockIcon}
+                        <span class="${stockAvailable ? 'stock-qty' : 'stock-neutral'} mono-text">${stockText}</span>
+                        ${stockAvailable ? '<span class="stock-muted text-xs text-muted">В наявності</span>' : ''}
                     </div>
+                    <span class="catalog-price mono-text">${priceLabel}</span>
+                    <div class="qty-stepper">
+                        <button class="qty-btn qty-minus" aria-label="Зменшити">−</button>
+                        <input type="number" min="1" value="1" class="qty-input mono-text" aria-label="Кількість" style="min-width: 48px; width: 56px;">
+                        <button class="qty-btn qty-plus" aria-label="Збільшити">+</button>
+                    </div>
+                    <button class="btn btn-primary btn-add-cart">
+                        <svg class="cart-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        <span>Додати</span>
+                    </button>
                 </div>
             `;
             
-            const btn = row.querySelector('.btn-add');
+            const btnAdd = row.querySelector('.btn-add-cart');
             const input = row.querySelector('.qty-input');
-            btn.addEventListener('click', () => {
+            const btnMinus = row.querySelector('.qty-minus');
+            const btnPlus = row.querySelector('.qty-plus');
+            
+            const updateQty = (delta) => {
+                let val = parseInt(input.value, 10) || 1;
+                val = Math.max(1, val + delta);
+                input.value = val;
+            };
+            
+            btnAdd.addEventListener('click', () => {
                 const qty = parseInt(input.value, 10) || 1;
                 addToReservation({
                     id: item.id,
@@ -176,6 +202,13 @@ export async function renderStandard(root, categorySlug, standardSlug) {
                     price: item.priceRaw,
                     qty: qty
                 });
+            });
+            
+            btnMinus.addEventListener('click', () => updateQty(-1));
+            btnPlus.addEventListener('click', () => updateQty(1));
+            input.addEventListener('change', () => {
+                let val = parseInt(input.value, 10) || 1;
+                if (val < 1) input.value = 1;
             });
 
             grid.appendChild(row);
