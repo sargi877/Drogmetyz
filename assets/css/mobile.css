@@ -82,6 +82,7 @@
   .card {
     padding: var(--space-4);
     padding-top: calc(var(--space-4) + 16px);
+    overflow-x: hidden;
   }
 
   .card h3 {
@@ -246,13 +247,16 @@
 
   .card .btn-add-cart {
     order: 11;
-    flex: 1 1 auto;
+    flex: 1 1 100%;
     justify-content: center;
     width: 100%;
     min-height: 44px;
   }
 
   .card .catalog-price {
+    min-width: 0;
+    white-space: normal;
+    width: 100%;
     padding: 2px 6px;
     font-size: var(--text-xs);
   }
