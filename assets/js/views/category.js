@@ -60,9 +60,9 @@ export async function renderCategory(root, categorySlug) {
 
         card.innerHTML = `
             <div class="title-block">${standardNum} ${classText}</div>
-            <h3 style="margin-bottom: var(--space-2); margin-top: var(--space-4);">${standardNum}</h3>
+            <h3 style="margin-bottom: var(--space-2);">${standardNum}</h3>
             <p class="text-sm text-muted">${desc}</p>
-            <p class="mono-text text-xs" style="margin-top: var(--space-4);">${st.count} розмірів</p>
+            <p class="mono-text text-xs" style="margin-top: var(--space-3); margin-bottom: 0;">${st.count} розмірів</p>
         `;
         grid.appendChild(card);
     }

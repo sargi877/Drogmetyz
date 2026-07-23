@@ -690,7 +690,7 @@
 .stock-check-icon {
   flex-shrink: 0;
   color: #fff;
-  filter: drop-shadow(0 0 3px rgba(22, 163, 74, 0.5));
+  filter: drop-shadow(0 0 2px rgba(22, 163, 74, 0.6));
   cursor: default;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
@@ -728,6 +728,9 @@
 }
 
 .stock-muted {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   padding: 2px 8px;
   background: rgba(22, 163, 74, 0.2);
   border: 1px solid rgba(22, 163, 74, 0.3);
@@ -815,13 +818,18 @@
 
 .card {
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
   padding: var(--space-4);
   background-color: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   animation: card-in 0.45s ease both;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.2s ease;
+}
+
+.card:has(.title-block) {
+  padding-top: calc(var(--space-4) + 16px);
 }
 
 a.card:hover {
@@ -841,13 +849,32 @@ a.card:hover {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 4px 8px;
+  padding: 4px 10px;
   background-color: var(--surface-2);
   border-left: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  border-bottom-left-radius: var(--radius-sm);
   font-family: 'IBM Plex Mono', monospace;
   font-size: var(--text-xs);
   color: var(--text-muted);
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 2;
+}
+
+.title-block + h1,
+.title-block + h2,
+.title-block + h3,
+.title-block + p {
+  margin-top: var(--space-2);
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
 }
 
 

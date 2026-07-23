@@ -163,9 +163,7 @@ export async function renderStandard(root, categorySlug, standardSlug) {
                 </div>
                 <div style="display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0;">
                     <div class="stock-cell">
-                        ${stockIcon}
-                        <span class="${stockAvailable ? 'stock-qty' : 'stock-neutral'} mono-text">${stockText}</span>
-                        ${stockAvailable ? '<span class="stock-muted text-xs text-muted">В наявності</span>' : ''}
+                        ${stockAvailable ? `<span class="stock-muted mono-text">${stockIcon}${stockText} · В наявності</span>` : `<span class="stock-neutral mono-text">${stockText}</span>`}
                     </div>
                     <span class="catalog-price mono-text">${priceLabel}</span>
                     <div class="qty-stepper">

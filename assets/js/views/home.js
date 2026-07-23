@@ -33,7 +33,7 @@ export async function renderHome(root) {
         <section style="padding: var(--space-6) 0;">
             <div class="container">
                 <h2 class="display-text">Як це працює</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4);">
+                <div class="home-grid">
                     <div class="card">
                         <div class="title-block">КРОК 1</div>
                         <h3>Оберіть деталь і кількість</h3>
@@ -58,7 +58,7 @@ export async function renderHome(root) {
                     <h2 class="display-text" style="margin: 0;">Популярні категорії</h2>
                     <a href="#/catalog" class="mono-text text-sm" style="color: var(--line);">Увесь каталог &rarr;</a>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-4);">
+                <div class="home-grid">
                     <a href="#/catalog/bolty" class="card">
                         <div class="title-block">Категорія</div>
                         <h3>Болти</h3>
