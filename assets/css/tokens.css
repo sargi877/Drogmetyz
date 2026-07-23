@@ -16,18 +16,18 @@
 }
 
 [data-theme="dark"] {
-  --bg: #0A1424;
-  --surface: #101D34;
-  --surface-2: #16294A;
-  --border: #2C4A7C;
-  --line: #4A8FE7;
-  --line-bright: #7FB8FF;
-  --text: #E7EEF9;
-  --text-muted: #8FA3C4;
-  --stock-ok: #4ADE9A;
-  --stock-low: #F2B84B;
-  --stock-out: #E5677A;
-  --focus-ring: #7FB8FF;
+  --bg: #030712;
+  --surface: #111827;
+  --surface-2: #1f2937;
+  --border: #374151;
+  --line: #3b82f6;
+  --line-bright: #60a5fa;
+  --text: #f9fafb;
+  --text-muted: #9ca3af;
+  --stock-ok: #10b981;
+  --stock-low: #f59e0b;
+  --stock-out: #ef4444;
+  --focus-ring: #3b82f6;
 }
 
 :root {
@@ -49,6 +49,6 @@
   --space-8: 64px;
   --space-9: 96px;
 
-  --radius-sm: 2px;
-  --radius-md: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
 }

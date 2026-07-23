@@ -741,7 +741,13 @@
   opacity: 0.9;
   cursor: default;
   animation: fade-in 0.4s ease both;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+[data-theme="light"] .stock-muted {
+  color: var(--text);
+  background: rgba(22, 163, 74, 0.15);
+  border-color: rgba(22, 163, 74, 0.3);
 }
 
 .stock-cell:hover .stock-muted {

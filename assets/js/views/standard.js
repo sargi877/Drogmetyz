@@ -128,8 +128,9 @@ export async function renderStandard(root, categorySlug, standardSlug) {
 
         matching.forEach(item => {
             const row = document.createElement('div');
-            row.className = 'card';
+            row.className = 'card catalog-row';
             row.style.display = 'flex';
+            row.style.flexDirection = 'row';
             row.style.alignItems = 'center';
             row.style.justifyContent = 'space-between';
             row.style.flexWrap = 'nowrap';
