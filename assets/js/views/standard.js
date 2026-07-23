@@ -129,13 +129,6 @@ export async function renderStandard(root, categorySlug, standardSlug) {
         matching.forEach(item => {
             const row = document.createElement('div');
             row.className = 'card catalog-row';
-            row.style.display = 'flex';
-            row.style.flexDirection = 'row';
-            row.style.alignItems = 'center';
-            row.style.justifyContent = 'space-between';
-            row.style.flexWrap = 'nowrap';
-            row.style.gap = 'var(--space-4)';
-            row.style.padding = 'var(--space-3) var(--space-4)';
 
             const qty = parseInt(item.stockRaw || '0', 10);
             let stockIcon = '';
